@@ -19,7 +19,7 @@ chara_line << [
   'ID  :プレイヤー'
 ].join('|')
 
-%w(3 8 4 178 179).each { |id|
+ARGV.each { |id|
   result = []
 
   # JSON 読み込み
