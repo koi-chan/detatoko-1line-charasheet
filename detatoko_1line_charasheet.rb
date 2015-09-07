@@ -7,11 +7,13 @@ root_path = File.expand_path('.', File.dirname(__FILE__))
 require "#{root_path}/lib/string"
 
 module Detatoko1LineCharaSheet
+  # 名前項目の文字数(幅)をいくつに設定するか。
+  NAME_WIDTH = 16
 
-  # 1行キャラシのタイトル行を出力します
+  # 1行キャラシのタイトル行を出力する
   # @return [String]
   def title_line
-    [ '名前　　　',
+    [ '名前'.dispformat(NAME_WIDTH),
       'Lv',
       '体力　気力 ',
       '常行対誘',
@@ -20,18 +22,11 @@ module Detatoko1LineCharaSheet
     ].join('|')
   end
 
-  def chara_sheet_line(id)
-    cs = Element.new(id)
-    cs.chara_sheet_line
-  end
-
-  class Element
+  class Detatoko1LineCharaSheetElement
     # 1キャラシ(1行)を作成する各要素を用意するためのクラス
     
     # オンラインキャラクターシートのJSON出力用URL
     CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.json'
-    # 名前項目の文字数(幅)をいくつに設定するか(規定値:半角10文字)。
-    NAME_WIDTH = 10
 
     # JSON でデータを取り込む
     # @param id [Fixnum] オンラインキャラシの登録ID
@@ -56,15 +51,7 @@ module Detatoko1LineCharaSheet
     # PC の名前
     # @return [String]
     def pcname
-      namelong = @chara_sheet['name'].dispsize
-      case namelong
-      when 1..NAME_WIDTH - 1
-        @chara_sheet['name'] + ' ' * (NAME_WIDTH - namelong)
-      when NAME_WIDTH
-        @chara_sheet['name']
-      else
-        @chara_sheet['name'].dispsize_cut(NAME_WIDTH, true)
-      end
+      @chara_sheet['name'].dispformat(NAME_WIDTH)
     end
 
     # PC のレベル

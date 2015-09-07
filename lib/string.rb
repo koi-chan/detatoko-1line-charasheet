@@ -32,13 +32,12 @@ class String
     return self if self.dispsize <= long
     
     result = ''
-    nowlong = 0
     chars = self.chars
-    nowlong += 2 if dot
+    nowlong = dot ? 2 : 0
     
     chars.each { |char|
       if (nowlong += char.dispsize) <= long
-        result << chars.shift
+        result << char
       end
     }
 
@@ -46,4 +45,19 @@ class String
     result << ' ' unless result.dispsize == long
     result
   end
+
+  # 指定した長さに丸めたり末尾に空白を挿入したりする
+  # @return [String]
+  def dispformat(target)
+    long = self.dispsize
+    case long
+    when 1..target - 1
+      self + ' ' * (target - long)
+    when target
+      self
+    else
+      self.dispsize_cut(target, true)
+    end
+  end
+
 end
