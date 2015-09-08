@@ -1,5 +1,5 @@
 language: ruby
-ruby:
+rvm:
   - '1.8'
   - '1.9.3'
   - '2.0.0'
@@ -11,7 +11,8 @@ script:
   - 'ruby -r cgi detatoko_1line_charasheet.cgi title_line=false&target=1+2'
   - 'ruby -r cgi detatoko_1line_charasheet.cgi target=1+2'
 notifications:
-  emails:
-    - 'koi-chan@mail.kazagakure.net'
-  on_success: change
-  on_failure: always
+  irc:
+    channels: 
+      - 'irc.cre.jp#koi-chan'
+    on_success: change
+    on_failure: always
