@@ -32,6 +32,7 @@ end
 def formoutput
   print <<__EOT__
 <div id="form">
+  <h2>出力したいキャラクターの指定</h2>
   <form method="get">
     <p>表示したいキャラクターシートのIDを入力してください。</p>
     <p>半角空白で区切ることで、複数のキャラクターの1行キャラクターシートを出力することができます。</p>
@@ -60,7 +61,8 @@ end
 # 1行キャラクターシートを出力する
 def chara_sheet
   print(%{<div id="charasheet">\n})
-  print(%{<p>出力結果</p>\n})
+  print(%{<h2>出力結果</h2>\n})
+  print(%{<p>以下のテキストエリアの内容をコピーして、メモ帳などに貼り付けてお使いください。</p>\n})
   print(%{<textarea name="output" cols="120" rows="10" readonly wrap="off">\n})
   print("#{title_line}\n") if @output_title_line
   @targets.each { |value| 
@@ -72,6 +74,7 @@ def chara_sheet
     end
   }
   print("</textarea>\n")
+  print(%{<p>出力データの解説は <a href="https://github.com/koi-chan/detatoko-1line-charasheet#%E5%87%BA%E5%8A%9B%E3%83%87%E3%83%BC%E3%82%BF%E8%A7%A3%E8%AA%AC">ヘルプ</a>をご覧ください。</p>\n})
   print("</div>\n\n")
 end
 
@@ -82,6 +85,11 @@ def htmlheader
 <head>
   <meta charset="UTF-8" />
   <title>でたとこサーガ 1行キャラクターシート出力</title>
+  <style type="text/css">
+    textarea {
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
 <h1>でたとこサーガ 1行キャラクターシート出力</h1>

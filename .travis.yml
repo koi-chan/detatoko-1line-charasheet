@@ -13,8 +13,8 @@ notifications:
   irc:
     use_notice: true
     channels: 
-      - 'irc.cre.jp#koi-chan'
-    on_success: change
+      - 'irc.trpg.net#koi-chan'
+    on_success: always
     on_failure: always
     template:
       - '%{repository_slug} #%{build_number} %{branch} - %{commit} -> %{result}'
