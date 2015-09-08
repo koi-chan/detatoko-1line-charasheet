@@ -2,7 +2,8 @@
 # coding: UTF-8
 
 require 'json'
-require 'net/http'
+require 'open-uri'
+require 'logger'
 
 root_path = File.expand_path('.', File.dirname(__FILE__))
 require "#{root_path}/lib/string"
@@ -31,12 +32,23 @@ module Detatoko1LineCharaSheet
     # オンラインキャラクターシートのJSON出力用URL
     CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.json'
 
+    # エラーが発生した時
+    attr_reader :error
+
     # JSON でデータを取り込む
     # @param id [Fixnum] オンラインキャラシの登録ID
     # @return [String] 完成した1行キャラシ
     # ToDo: エラー処理を書く
-    def initialize(id)
-      @chara_sheet = JSON.parse(Net::HTTP.get(URI.parse(CHARA_SHEET_URL % id)))
+    def initialize(request)
+      @logger = Logger.new(STDERR)
+      @logger.progname = 'Detatoko1LineCharaSheet'
+
+      @request = request
+      @chara_sheet = json_parse
+      if @chara_sheet == nil
+        @error = "Error: キャラクターシートID '#{request}' を読み込めませんでした"
+        return
+      end
 
       @pcname = pcname
       @level = level
@@ -59,12 +71,14 @@ module Detatoko1LineCharaSheet
     def pcname
       @chara_sheet['name'].dispformat(NAME_WIDTH)
     end
+    private :pcname
 
     # PC のレベル
     # @return [String]
     def level
       unify_dispsize2(@chara_sheet['level'].to_s)
     end
+    private :level
 
     # 体力・気力・フラグ
     # @return [String]
@@ -75,18 +89,21 @@ module Detatoko1LineCharaSheet
       }
       hpmp.insert(-6, ' ') << ' 0'
     end
+    private :hpmp
 
     # クラス
     # @return [String]
     def classes
       @chara_sheet['class'].map { |array| classID_short(array['id']) }.join
     end
+    private :classes
 
     # スキル
     # @return [String]
     def skills
       @chara_sheet['skill'].map { |array| array['name'].chars.first }.join
     end
+    private :skills
 
     # スキルタイミング・ジャンル
     # @return [Array<String>] [timing, string] の順番
@@ -103,18 +120,33 @@ module Detatoko1LineCharaSheet
         }.join
       }
     end
+    private :timing_janre
 
     # キャラクターID
     # @return [String]
     def charaID
       "#{'% 4d' % @chara_sheet['id']}"
     end
+    private :charaID
 
     # プレイヤー名
     # @return [String]
     def plname
       @chara_sheet['player_name']
     end
+    private :plname
+
+    # 公式キャラシから JSON をダウンロードし、Hash に変換する
+    # @return [Hash]
+    def json_parse
+      begin
+        JSON.parse(open(URI.parse(CHARA_SHEET_URL % @request)).read)
+      rescue => e
+        @logger.error { ["requestID:#{@request}", e.class, e].join(' : ') }
+        nil
+      end
+    end
+    private :json_parse
 
     # 半角2文字幅で表示をそろえるため数字の全角・半角を調整する
     # @param [String] num 整数(1桁もしくは2桁)
@@ -142,5 +174,3 @@ module Detatoko1LineCharaSheet
     private :classID_short
   end
 end
-
-

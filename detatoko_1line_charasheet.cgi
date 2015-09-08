@@ -14,7 +14,7 @@ include Detatoko1LineCharaSheet
 def formread
   @targets = @cgi['target'].split(' ').map { |value|
     value.to_i != 0 ? value.to_i : nil
-  }
+  }.compact
   @output_title_line = 
     case @cgi['title_line']
     when 'true'
@@ -40,7 +40,7 @@ def formoutput
       <input type="radio" name="title_line" value="true" #{output_title_line_checked?(true)} />出力する
       <input type="radio" name="title_line" value="false" #{output_title_line_checked?(false)} />出力しない
     </p>
-    <input type="submit" name="出力開始" />
+    <input type="submit" value="出力開始" />
     <input type="reset" name="リセット" />
   </form>
 </div>
@@ -61,11 +61,15 @@ end
 def chara_sheet
   print(%{<div id="charasheet">\n})
   print(%{<p>出力結果</p>\n})
-  print(%{<textarea name="output" cols="80" rows="10" readonly wrap="off">\n})
+  print(%{<textarea name="output" cols="120" rows="10" readonly wrap="off">\n})
   print("#{title_line}\n") if @output_title_line
   @targets.each { |value| 
     cs = Detatoko1LineCharaSheetElement.new(value)
-    print("#{cs.chara_sheet_line}\n")
+    if cs.error == nil
+      print("#{cs.chara_sheet_line}\n")
+    else
+      print("#{cs.error}\n")
+    end
   }
   print("</textarea>\n")
   print("</div>\n\n")

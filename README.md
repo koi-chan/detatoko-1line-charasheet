@@ -35,25 +35,25 @@ _プレイヤー_ はキャラクターシートの登録者名です。
 
 このリポジトリに含まれるファイルの一覧です。
 
-### [detatoko_1line_charasheet.rb]
+### detatoko_1line_charasheet.rb
 
 中核となるファイルです。  
-[オンラインのキャラクターシート](http://detatoko-saga.com/character/) の JSON 出力機能からデータを取得し、整形します。
+[公式が提供しているオンラインキャラクターシート](http://detatoko-saga.com/character/) の JSON 出力機能からデータを取得し、整形します。
 
 他のフロントエンドから呼び出されて機能します。単体では動作しません。  
-外部ライブラリとして [lib/string.rb] 及び、組み込みライブラリ「JSON」「net/http」を利用します。
+外部ライブラリとして lib/string.rb 及び、組み込みライブラリ「JSON」「net/http」を利用します。
 
-### [detatoko_1line_charasheet.cgi]
+### detatoko_1line_charasheet.cgi
 
 CGI として動作させるためのファイルです。  
 フロントエンドですので、単体では動作しません。
 
-### [shell.rb]
+### shell.rb
 
 シェルから呼び出して実行するためのファイルです。  
 CGI 用と同様に、単体では動作しません。 
 
-### [lib/string.rb]
+### lib/string.rb
 
 組み込みクラス String を拡張するライブラリです。
 
@@ -65,7 +65,7 @@ CGI 用と同様に、単体では動作しません。
 ### Ruby
 
 * 1.9.3
-* 2.0.0p598
+* 2.0.0
 * 2.1.7
 * 2.2.3
 
@@ -82,12 +82,13 @@ CGI 用と同様に、単体では動作しません。
 
 ### CGI 編
 
-1. Ruby インタプリタのパスを調べ、[detatoko_1line_charasheet.cgi] の1行目を書き換えます。  
+1. Ruby インタプリタのパスを調べ、detatoko_1line_charasheet.cgi の1行目を書き換えます。  
 レンタルホームページスペースのマニュアルなどを確認してください。
 2. 次のファイル・ディレクトリをレンタルホームページスペースなどにアップロードします。  
   * detatoko_1line_charasheet.rb
   * detatoko_1line_charasheet.cgi
-3. [detatoko_1line_charasheet.cgi] のパーミッションを変更します。大抵は 755 (rwx-r-xr-x) ですが、レンタルスペースによっては 705 などの場合もあります。
+  * lib/
+3. detatoko_1line_charasheet.cgi のパーミッションを変更します。大抵は 755 (rwx-r-xr-x) ですが、レンタルスペースによっては 705 などの場合もあります。
 4. 動作確認を行ないます。
 
 ### シェル編
@@ -98,5 +99,6 @@ shell.rb を実行します。引数として、出力したいキャラクタ�
 末尾に書かれた数字がIDです。このURLの場合、IDは 1 となります。  
 コマンド例としては以下の通りです。
 
+```
 ruby shell.rb 1
-
+```

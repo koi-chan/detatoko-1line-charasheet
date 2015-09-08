@@ -7,8 +7,14 @@ require "#{root_path}/detatoko_1line_charasheet"
 include Detatoko1LineCharaSheet
 
 puts title_line
-ARGV.each { |value| 
+ARGV.map { |value|
+  value.to_i != 0 ? value.to_i : nil
+}.compact.each { |value| 
   cs = Detatoko1LineCharaSheetElement.new(value)
-  puts cs.chara_sheet_line
+  if cs.error == nil
+    puts cs.chara_sheet_line
+  else
+    puts cs.error
+  end
 }
 
