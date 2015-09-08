@@ -3,7 +3,7 @@
 class String
   # 数字を全角に変換する
   def half_to_full
-    self.tr('0-99', '０-９')
+    self.tr('0-9', '０-９')
   end
 
   # 数字を半角に変換する
@@ -61,5 +61,4 @@ class String
       self.dispsize_cut(target, true)
     end
   end
-
 end
