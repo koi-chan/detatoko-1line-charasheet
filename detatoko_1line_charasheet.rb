@@ -16,11 +16,12 @@ module Detatoko1LineCharaSheet
   def title_line
     [ '名前'.dispformat(NAME_WIDTH),
       'Lv',
-      '体力　気力 ',
+      '体力　気力 旗',
       'クラス　',
       'スキル　　　',
       '意感交肉技知',
-      'ID  :プレイヤー'
+      'ID  ',
+      'プレイヤー'
     ].join('|')
   end
 
@@ -43,13 +44,14 @@ module Detatoko1LineCharaSheet
       @classes = classes
       @skills = skills
       @timing, @janre = timing_janre
-      @footer = footer
+      @charaID = charaID
+      @plname = plname
     end
 
     # 1行キャラクターシートを出力する
     # @return [String]
     def chara_sheet_line
-      [@pcname, @level, @hpmp, @classes, @skills, @janre, @footer].join('|')
+      [@pcname, @level, @hpmp, @classes, @skills, @janre, @charaID, @plname].join('|')
     end
 
     # PC の名前
@@ -64,14 +66,14 @@ module Detatoko1LineCharaSheet
       unify_dispsize2(@chara_sheet['level'].to_s)
     end
 
-    # 体力・気力
+    # 体力・気力・フラグ
     # @return [String]
     def hpmp
       hpmp = ''
       %w(h m).each { |type|
         hpmp << (@chara_sheet["#{type}p"]['total'].to_s * 2).insert(2, '/')
       }
-      hpmp.insert(-6, ' ')
+      hpmp.insert(-6, ' ') << ' 0'
     end
 
     # クラス
@@ -102,10 +104,16 @@ module Detatoko1LineCharaSheet
       }
     end
 
-    # フッター(キャラクターID・PL名)
+    # キャラクターID
     # @return [String]
-    def footer
-      "#{'% 4d' % @chara_sheet['id']}: #{@chara_sheet['player_name']}"
+    def charaID
+      "#{'% 4d' % @chara_sheet['id']}"
+    end
+
+    # プレイヤー名
+    # @return [String]
+    def plname
+      @chara_sheet['player_name']
     end
 
     # 半角2文字幅で表示をそろえるため数字の全角・半角を調整する

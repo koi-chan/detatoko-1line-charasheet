@@ -1,9 +1,8 @@
 language: ruby
 rvm:
-  - '1.8'
   - '1.9.3'
   - '2.0.0'
-  - '2.1.0'
+  - '2.1.7'
   - '2.2.3'
 script:
   - 'ruby shell.rb 1 2 3'
@@ -12,7 +11,12 @@ script:
   - "ruby -r cgi detatoko_1line_charasheet.cgi target=1+2"
 notifications:
   irc:
+    use_notice: true
     channels: 
       - 'irc.cre.jp#koi-chan'
     on_success: change
     on_failure: always
+    template:
+      - '%{repository_slug} #%{build_number} %{branch} - %{commit} -> %{result}'
+      - '変更履歴: %{compare_url}'
+      - 'ステータス: %{build_url}'
