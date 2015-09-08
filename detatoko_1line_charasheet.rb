@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: UTF-8
 
 require 'json'
 require 'net/http'
@@ -7,8 +8,8 @@ root_path = File.expand_path('.', File.dirname(__FILE__))
 require "#{root_path}/lib/string"
 
 module Detatoko1LineCharaSheet
-  # 名前項目の文字数(幅)をいくつに設定するか。
-  NAME_WIDTH = 16
+  # 名前項目の文字数(半角換算の幅)をいくつに設定するか。
+  NAME_WIDTH = 12
 
   # 1行キャラシのタイトル行を出力する
   # @return [String]
@@ -16,7 +17,8 @@ module Detatoko1LineCharaSheet
     [ '名前'.dispformat(NAME_WIDTH),
       'Lv',
       '体力　気力 ',
-      '常行対誘',
+      'クラス　',
+      'スキル　　　',
       '意感交肉技知',
       'ID  :プレイヤー'
     ].join('|')
@@ -38,6 +40,8 @@ module Detatoko1LineCharaSheet
       @pcname = pcname
       @level = level
       @hpmp = hpmp
+      @classes = classes
+      @skills = skills
       @timing, @janre = timing_janre
       @footer = footer
     end
@@ -45,7 +49,7 @@ module Detatoko1LineCharaSheet
     # 1行キャラクターシートを出力する
     # @return [String]
     def chara_sheet_line
-      [@pcname, @level, @hpmp, @timing, @janre, @footer].join('|')
+      [@pcname, @level, @hpmp, @classes, @skills, @janre, @footer].join('|')
     end
 
     # PC の名前
@@ -70,6 +74,18 @@ module Detatoko1LineCharaSheet
       hpmp.insert(-6, ' ')
     end
 
+    # クラス
+    # @return [String]
+    def classes
+      @chara_sheet['class'].map { |array| classID_short(array['id']) }.join
+    end
+
+    # スキル
+    # @return [String]
+    def skills
+      @chara_sheet['skill'].map { |array| array['name'].chars.first }.join
+    end
+
     # スキルタイミング・ジャンル
     # @return [Array<String>] [timing, string] の順番
     def timing_janre
@@ -92,6 +108,7 @@ module Detatoko1LineCharaSheet
       "#{'% 4d' % @chara_sheet['id']}: #{@chara_sheet['player_name']}"
     end
 
+    # 半角2文字幅で表示をそろえるため数字の全角・半角を調整する
     # @param [String] num 整数(1桁もしくは2桁)
     # @result [String] 1桁なら全角に、2桁なら半角の整数
     def unify_dispsize2(num)
@@ -103,6 +120,18 @@ module Detatoko1LineCharaSheet
       end
     end
     private :unify_dispsize2
+
+    # クラスIDから全角2文字の短縮形に変換する
+    # @param [Fixnum] class_id JSONから読み込むことを考慮し文字列型
+    # @return [String]
+    def classID_short(class_id)
+      class_ids = ['勇者', '魔王', '姫様', 'ドラ', '戦士', '魔使',
+                   '神聖', '暗黒', 'マス', 'モン', '謎　', 'ザコ',
+                   'メカ', '商人', '占師'               # フロンティア
+      ]
+      class_ids[class_id.to_i - 1]
+    end
+    private :classID_short
   end
 end
 

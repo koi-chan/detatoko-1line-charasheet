@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: UTF-8
 
 root_path = File.expand_path('.', File.dirname(__FILE__))
 require "#{root_path}/detatoko_1line_charasheet"

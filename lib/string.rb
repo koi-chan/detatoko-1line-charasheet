@@ -1,3 +1,5 @@
+# coding: UTF-8
+
 class String
   # 数字を全角に変換する
   def half_to_full

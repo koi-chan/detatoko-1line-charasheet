@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# coding: UTF-8
 
 require 'cgi'
 
@@ -35,10 +36,10 @@ def formoutput
     <p>表示したいキャラクターシートのIDを入力してください。</p>
     <p>半角空白で区切ることで、複数のキャラクターの1行キャラクターシートを出力することができます。</p>
     <input type="text" name="target" value="#{@targets.join(' ')}" size="80" />
-    <p>タイトル行</p>
-    <input type="radio" name="title_line" value="true" #{output_title_line_checked?(true)} />出力する
-    <input type="radio" name="title_line" value="false" #{output_title_line_checked?(false)} />出力しない
-    <br />
+    <p>タイトル行を 
+      <input type="radio" name="title_line" value="true" #{output_title_line_checked?(true)} />出力する
+      <input type="radio" name="title_line" value="false" #{output_title_line_checked?(false)} />出力しない
+    </p>
     <input type="submit" name="出力開始" />
     <input type="reset" name="リセット" />
   </form>
@@ -60,7 +61,7 @@ end
 def chara_sheet
   print(%{<div id="charasheet">\n})
   print(%{<p>出力結果</p>\n})
-  print(%{<textarea name="output" cols="80" rows="10">\n})
+  print(%{<textarea name="output" cols="80" rows="10" readonly wrap="off">\n})
   print("#{title_line}\n") if @output_title_line
   @targets.each { |value| 
     cs = Detatoko1LineCharaSheetElement.new(value)

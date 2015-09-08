@@ -7,9 +7,9 @@ rvm:
   - '2.2.3'
 script:
   - 'ruby shell.rb 1 2 3'
-  - 'ruby -r cgi detatoko_1line_charasheet.cgi title_line=true&target=1+2+3'
-  - 'ruby -r cgi detatoko_1line_charasheet.cgi title_line=false&target=1+2'
-  - 'ruby -r cgi detatoko_1line_charasheet.cgi target=1+2'
+  - "ruby -r cgi detatoko_1line_charasheet.cgi 'title_line=true&target=1+2+3'"
+  - "ruby -r cgi detatoko_1line_charasheet.cgi 'title_line=false&target=1+2'"
+  - "ruby -r cgi detatoko_1line_charasheet.cgi target=1+2"
 notifications:
   irc:
     channels: 
