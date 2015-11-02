@@ -20,3 +20,4 @@ notifications:
       - '%{repository_slug} #%{build_number} %{branch} - %{commit} -> %{result}'
       - '変更履歴: %{compare_url}'
       - 'ステータス: %{build_url}'
+  email: false

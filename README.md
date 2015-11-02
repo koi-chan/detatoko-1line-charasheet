@@ -1,4 +1,4 @@
-# でたとこサーガ用1行キャラシ出力ツール
+# でたとこサーガ用1行キャラシ出力ツール ver1.0
 
 [![Build Status](https://travis-ci.org/koi-chan/detatoko-1line-charasheet.svg?branch=master)](https://travis-ci.org/koi-chan/detatoko-1line-charasheet)
 
