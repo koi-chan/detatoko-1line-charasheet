@@ -44,7 +44,7 @@ def formoutput
 <div id="form">
   <h2>出力したいキャラクターの指定</h2>
   <form method="get">
-    <p>表示したいキャラクターシートのIDを入力してください。</p>
+    <p>表示したいキャラクターシートのIDを半角数字で入力してください。</p>
     <p>半角空白で区切ることで、複数のキャラクターの1行キャラクターシートを出力することができます。</p>
     <input type="text" name="target" value="#{@targets.join(' ')}" size="80" />
     <p>タイトル行を 
@@ -105,7 +105,7 @@ def htmlheader
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>でたとこサーガ 1行キャラクターシート出力</title>
+  <title>でたとこサーガ 1行キャラクターシート出力 ver#{VERSION}</title>
   <style type="text/css">
     textarea {
       font-family: monospace;
@@ -113,7 +113,7 @@ def htmlheader
   </style>
 </head>
 <body>
-<h1>でたとこサーガ 1行キャラクターシート出力</h1>
+<h1>でたとこサーガ 1行キャラクターシート出力 ver#{VERSION}</h1>
 
 __EOT__
 end
@@ -121,7 +121,6 @@ end
 # HTML フッタを出力する
 def htmlfooter
   print <<__EOT__
-<copyright>でたとこサーガ 1行キャラクターシートCGI ver#{VERSION}</copyright>
 </body>
 </html>
 __EOT__
@@ -134,8 +133,8 @@ case @type
 when 'html'
   @cgi.print("Content-Type: text/html\n\n")
   htmlheader
-  chara_sheet_html
   formoutput
+  chara_sheet_html
   htmlfooter
 when 'text'
   @cgi.print("Content-Type: text/plain\n\n")
