@@ -99,7 +99,7 @@ InternetExplorer11.0(Windows10) では、テキストエリア内の文字が固
 
 ## 設置方法
 
-1. [圧縮ファイル](https://github.com/koi-chan/detatoko-1line-charasheet/releases/download/v2.1/Detatoko1LineCharaSheetCGI_2.1.zip)をダウンロードし、解凍します。
+1. [圧縮ファイル](https://github.com/koi-chan/detatoko-1line-charasheet/releases/download/v2.2/Detatoko1LineCharaSheetCGI_2.2.zip)をダウンロードし、解凍します。
 2. Ruby インタプリタのパスを調べ、index.cgi の1行目を書き換えます。  
 レンタルホームページスペースのマニュアルなどを確認してください。
 3. 次のファイル・ディレクトリをレンタルホームページスペースなどにアップロードします。  
