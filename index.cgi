@@ -12,6 +12,7 @@ include D1lcs
 require 'cgi'
 @cgi = CGI.new
 
+require 'date'
 
 # フォームから送られてきたデータを受け取る
 def formread
@@ -52,9 +53,9 @@ def formoutput
       <input type="radio" name="title_line" value="false" #{output_title_line_checked?(false)} />出力しない
     <br />
     出力を
-      <input type="radio" name="type" value="html" checked />HTML版(フォームあり)
-      <input type="radio" name="type" value="text" />テキスト版(フォームなし)
-    にする</p>
+      <input type="radio" name="type" value="html" checked />ブラウザに表示する
+      <input type="radio" name="type" value="text" />テキスト形式でダウンロードする
+    </p>
     <input type="submit" value="出力開始" />
     <input type="reset" name="リセット" />
   </form>
@@ -137,6 +138,7 @@ when 'html'
   chara_sheet_html
   htmlfooter
 when 'text'
+  @cgi.print("Content-Disposition: attachment; filename='detatoko1linecharasheet_#{DateTime.now.strftime('%Y%m%d%H%M%S')}.txt'\n")
   @cgi.print("Content-Type: text/plain\n\n")
   chara_sheet_text
 end

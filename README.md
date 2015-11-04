@@ -99,12 +99,13 @@ InternetExplorer11.0(Windows10) では、テキストエリア内の文字が固
 
 ## 設置方法
 
-1. Ruby インタプリタのパスを調べ、index.cgi の1行目を書き換えます。  
+1. [圧縮ファイル](https://github.com/koi-chan/detatoko-1line-charasheet/releases/download/v2.1/Detatoko1LineCharaSheetCGI_2.1.zip)をダウンロードし、解凍します。
+2. Ruby インタプリタのパスを調べ、index.cgi の1行目を書き換えます。  
 レンタルホームページスペースのマニュアルなどを確認してください。
-2. 次のファイル・ディレクトリをレンタルホームページスペースなどにアップロードします。  
+3. 次のファイル・ディレクトリをレンタルホームページスペースなどにアップロードします。  
   * index.cgi
   * version.rb
   * .htaccess
   * lib/
-3. index.cgi のパーミッションを変更します。大抵は 755 (rwx-r-xr-x) ですが、レンタルスペースによっては 705 などの場合もあります。
-4. 動作確認を行ないます。
+4. index.cgi のパーミッションを変更します。大抵は 755(rwxr-xr-x) ですが、レンタルスペースによっては 705(rwx---r-x) などの場合もあります。
+5. 動作確認を行ないます。
