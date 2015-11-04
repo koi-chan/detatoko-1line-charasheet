@@ -1,0 +1,5 @@
+<IfModule dir_module>
+	DirectoryIndex index.cgi
+</IfModule>
+
+AddHandler cgi-script .cgi

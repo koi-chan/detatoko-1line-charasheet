@@ -44,14 +44,14 @@ def formoutput
 <div id="form">
   <h2>出力したいキャラクターの指定</h2>
   <form method="get">
-    <p>表示したいキャラクターシートのIDを半角数字で入力してください。</p>
-    <p>半角空白で区切ることで、複数のキャラクターの1行キャラクターシートを出力することができます。</p>
+    <p>表示したいキャラクターシートのIDを半角数字で入力してください。<br />
+    半角空白で区切ることで、複数のキャラクターの1行キャラクターシートを出力することができます。</p>
     <input type="text" name="target" value="#{@targets.join(' ')}" size="80" />
     <p>タイトル行を 
       <input type="radio" name="title_line" value="true" #{output_title_line_checked?(true)} />出力する
       <input type="radio" name="title_line" value="false" #{output_title_line_checked?(false)} />出力しない
-    </p>
-    <p>出力を
+    <br />
+    出力を
       <input type="radio" name="type" value="html" checked />HTML版(フォームあり)
       <input type="radio" name="type" value="text" />テキスト版(フォームなし)
     にする</p>
