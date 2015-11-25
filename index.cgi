@@ -112,6 +112,26 @@ def htmlheader
       font-family: monospace;
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "SoftwareApplication",
+    "name" : "でたとこサーガ 1行キャラクターシート出力",
+    "operatingSystem": "Windows, MacOS, Linux",
+    "url" : "http://d1lcs.kazagakure.net/",
+    "author" : {
+      "@type" : "Person",
+      "name" : "@koichan779"
+    },
+    "publisher" : {
+      "@type" : "Organization",
+      "name" : "https://github.com/koi-chan/detatoko-1line-charasheet"
+    },
+    "applicationCategory" : "SoftwareApplication",
+    "requirements": "Firefox, Chrome, Opera",
+    "softwareVersion" : "#{VERSION}"
+  }
+  </script>
 </head>
 <body>
 <h1>でたとこサーガ 1行キャラクターシート出力 ver#{VERSION}</h1>
