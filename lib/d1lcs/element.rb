@@ -16,7 +16,6 @@ module D1lcs
     attr_reader :error
 
     # JSON でデータを取り込む
-    # @param id [Fixnum] オンラインキャラシの登録ID
     # @return [String] 完成した1行キャラシ
     # ToDo: エラー処理を書く
     def initialize(request)
@@ -136,7 +135,7 @@ module D1lcs
 
     # リクエストされたキャラクターIDが正しいか確認する
     # @param [String] request
-    # @return [Fixnum/false]
+    # @return [Integer/false]
     def check_id(request)
       id = request.to_i
       case id
@@ -182,7 +181,7 @@ module D1lcs
     end
 
     # クラスIDから全角2文字の短縮形に変換する
-    # @param [Fixnum] class_id JSONから読み込むことを考慮し文字列型
+    # @param [Integer] class_id JSONから読み込むことを考慮し文字列型
     # @return [String]
     def classID_short(class_id)
       class_ids = ['勇者', '魔王', '姫様', 'ドラ', '戦士', '魔使',
@@ -193,7 +192,7 @@ module D1lcs
     end
 
     # ポジションIDから全角2文字の短縮形に変換する
-    # @param [Fixnum] position_id JSONから読み込むことを考慮し文字列型
+    # @param [Integer] position_id JSONから読み込むことを考慮し文字列型
     # @return [String]
     def positionID_short(position_id)
       position_ids = ['冒険', '凡人', '夢追', '神話', '負犬', '守護',
