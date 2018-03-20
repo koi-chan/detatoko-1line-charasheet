@@ -10,7 +10,7 @@ module D1lcs
     # 1キャラシ(1行)を作成する各要素を用意するためのクラス
     
     # オンラインキャラクターシートのJSON出力用URL
-    CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.json'
+    CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.js'
 
     # エラーが発生した時
     attr_reader :error
@@ -186,7 +186,9 @@ module D1lcs
     def classID_short(class_id)
       class_ids = ['勇者', '魔王', '姫様', 'ドラ', '戦士', '魔使',
                    '神聖', '暗黒', 'マス', 'モン', '謎　', 'ザコ',
-                   'メカ', '商人', '占師'               # フロンティア
+                   'メカ', '商人', '占師',              # フロンティア
+                   '忍者', '貴族', '死霊', '異形',      # ダークネス
+                   '探偵', '侍　', '祈祷', '偶像'       # ワールドツアー
       ]
       class_ids[class_id.to_i - 1]
     end
@@ -197,7 +199,9 @@ module D1lcs
     def positionID_short(position_id)
       position_ids = ['冒険', '凡人', '夢追', '神話', '負犬', '守護',
                       '悪党', 'カリ', '修羅', '遊人', '従者', '不明',
-                      '迷子', '伝説', '罪人', '傷追', '型破', '裏住'
+                      '迷子', '伝説', '罪人', '傷追', '型破', '裏住',
+                      '悪華', '堕落', '幹部', 'トリ', '無能', '支配',
+                      '狂才', '要悪', '外道', '野獣', '死使', '破滅'
       ]
       position_ids[position_id - 1]
     end
