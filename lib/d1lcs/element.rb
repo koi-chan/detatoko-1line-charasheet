@@ -10,13 +10,12 @@ module D1lcs
     # 1キャラシ(1行)を作成する各要素を用意するためのクラス
     
     # オンラインキャラクターシートのJSON出力用URL
-    CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.json'
+    CHARA_SHEET_URL = 'http://detatoko-saga.com/character/%d.js'
 
     # エラーが発生した時
     attr_reader :error
 
     # JSON でデータを取り込む
-    # @param id [Fixnum] オンラインキャラシの登録ID
     # @return [String] 完成した1行キャラシ
     # ToDo: エラー処理を書く
     def initialize(request)
@@ -136,7 +135,7 @@ module D1lcs
 
     # リクエストされたキャラクターIDが正しいか確認する
     # @param [String] request
-    # @return [Fixnum/false]
+    # @return [Integer/false]
     def check_id(request)
       id = request.to_i
       case id
@@ -182,23 +181,27 @@ module D1lcs
     end
 
     # クラスIDから全角2文字の短縮形に変換する
-    # @param [Fixnum] class_id JSONから読み込むことを考慮し文字列型
+    # @param [Integer] class_id JSONから読み込むことを考慮し文字列型
     # @return [String]
     def classID_short(class_id)
       class_ids = ['勇者', '魔王', '姫様', 'ドラ', '戦士', '魔使',
                    '神聖', '暗黒', 'マス', 'モン', '謎　', 'ザコ',
-                   'メカ', '商人', '占師'               # フロンティア
+                   'メカ', '商人', '占師',              # フロンティア
+                   '忍者', '貴族', '死霊', '異形',      # ダークネス
+                   '探偵', '侍　', '祈祷', '偶像'       # ワールドツアー
       ]
       class_ids[class_id.to_i - 1]
     end
 
     # ポジションIDから全角2文字の短縮形に変換する
-    # @param [Fixnum] position_id JSONから読み込むことを考慮し文字列型
+    # @param [Integer] position_id JSONから読み込むことを考慮し文字列型
     # @return [String]
     def positionID_short(position_id)
       position_ids = ['冒険', '凡人', '夢追', '神話', '負犬', '守護',
                       '悪党', 'カリ', '修羅', '遊人', '従者', '不明',
-                      '迷子', '伝説', '罪人', '傷追', '型破', '裏住'
+                      '迷子', '伝説', '罪人', '傷追', '型破', '裏住',
+                      '悪華', '堕落', '幹部', 'トリ', '無能', '支配',
+                      '狂才', '要悪', '外道', '野獣', '死使', '破滅'
       ]
       position_ids[position_id - 1]
     end

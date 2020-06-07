@@ -2,16 +2,19 @@
 
 class String
   # 数字を全角に変換する
+  # @return [String]
   def half_to_full
     self.tr('0-9', '０-９')
   end
 
   # 数字を半角に変換する
+  # @return [String]
   def full_to_half
     self.tr('０-９', '0-9')
   end
 
   # 文字列を表示するために使うサイズを返す
+  # @return [Integer]
   def dispsize
     charsize = 0
 
@@ -27,7 +30,7 @@ class String
   end
 
   # 表示サイズに文字列を切り詰める
-  # @param long [Fixnum] 生成文字列の長さ
+  # @param long [Integer] 生成文字列の長さ
   # @param dot [Boolean] 末尾に … を付加するか
   # @return [String]
   def dispsize_cut(long, dot = false)
